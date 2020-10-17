@@ -14,6 +14,16 @@ Function Get-Album([String]$FileName) {
     Return (Get-Tag($FileName)).Album
 }
 
+Function Get-Comment([String]$FileName) {
+    Return (Get-Tag($FileName)).Comment
+}
+
+Function Set-Tag([String]$FileName, [String]$Name, $Value) {
+    $Meta = [TagLib.File]::Create($FileName)
+    $Meta[$Name] = $Value
+    $Meta.Save()
+}
+
 Function Set-Title([String]$FileName, [String]$Title) {
     $Meta = [TagLib.File]::Create($FileName)
     $Meta.Tag.Title = $Title
@@ -29,5 +39,11 @@ Function Set-Artist([String]$FileName, [String[]]$Artist) {
 Function Set-Album([String]$FileName, [String]$Album) {
     $Meta = [TagLib.File]::Create($FileName)
     $Meta.Tag.Album = $Album
+    $Meta.Save()
+}
+
+Function Set-Comment([String]$FileName, [String]$Comment) {
+    $Meta = [TagLib.File]::Create($FileName)
+    $Meta.Tag.Comment = $Comment
     $Meta.Save()
 }
